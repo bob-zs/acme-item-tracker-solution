@@ -2,6 +2,7 @@ import React from 'react';
 import ThingForm from './ThingForm';
 import { connect } from 'react-redux';
 import DeleteThingBtn from './DeleteThingBtn';
+import RankForm from './RankForm';
 
 const Things = ({ things })=> {
   return (
@@ -12,8 +13,9 @@ const Things = ({ things })=> {
           things.map( thing => {
             return (
               <li key={ thing.id }>
-                { thing.name }
+                Rank #{ thing.rank }: { thing.name }
                 <DeleteThingBtn thing={ thing } />
+                <RankForm thing={ thing } />
               </li>
             );
           })
