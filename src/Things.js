@@ -1,7 +1,7 @@
 import React from 'react';
 import ThingForm from './ThingForm';
 import { connect } from 'react-redux';
-import DeleteBtn from './DeleteBtn';
+import DeleteThingBtn from './DeleteThingBtn';
 
 const Things = ({ things })=> {
   return (
@@ -13,7 +13,7 @@ const Things = ({ things })=> {
             return (
               <li key={ thing.id }>
                 { thing.name }
-                <DeleteBtn thing={ thing } />
+                <DeleteThingBtn thing={ thing } />
               </li>
             );
           })

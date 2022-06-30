@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-const DeleteBtn = ({ deleteThing, thing })=> {
+const DeleteThingBtn = ({ deleteThing, thing })=> {
   return (
     <button onClick={ ()=> deleteThing(thing) }>Delete</button>
   );
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch)=> {
   };
 }
 
-export default connect(null, mapDispatchToProps)(DeleteBtn);
+export default connect(null, mapDispatchToProps)(DeleteThingBtn);

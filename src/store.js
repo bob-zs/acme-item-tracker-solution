@@ -22,6 +22,12 @@ const store = createStore((state = initialState, action)=> {
   if(action.type === 'DELETE_THING'){
     return {...state, things: state.things.filter(thing => thing.id !== action.thing.id)};
   }
+  if(action.type === 'CREATE_USER'){
+    return {...state, users: [...state.users, action.user ]};
+  }
+  if(action.type === 'DELETE_USER'){
+    return {...state, users: state.users.filter(user => user.id !== action.user.id)};
+  }
   return state;
 });
 

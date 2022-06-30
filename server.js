@@ -26,6 +26,16 @@ app.get('/api/things', async(req, res, next)=> {
   }
 });
 
+app.delete('/api/things/:id', async(req, res, next)=> {
+  try {
+    await Thing.destroy({ where: { id: req.params.id } });
+    res.sendStatus(204);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
 app.get('/api/users', async(req, res, next)=> {
   try {
     res.send(await User.findAll());
@@ -35,9 +45,18 @@ app.get('/api/users', async(req, res, next)=> {
   }
 });
 
-app.delete('/api/things/:id', async(req, res, next)=> {
+app.post('/api/users', async(req, res, next)=> {
   try {
-    await Thing.destroy({ where: { id: req.params.id } });
+    res.status(201).send(await User.create(req.body));
+  }
+  catch(ex) {
+    next(ex);
+  }
+})
+
+app.delete('/api/users/:id', async(req, res, next)=> {
+  try {
+    await User.destroy({ where: { id: req.params.id } });
     res.sendStatus(204);
   }
   catch(ex){

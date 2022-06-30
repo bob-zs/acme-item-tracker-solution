@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import DeleteUserBtn from './DeleteUserBtn';
+import UserForm from './UserForm';
 
 
 const Users = ({ users })=> {
@@ -12,11 +14,13 @@ const Users = ({ users })=> {
             return (
               <li key={ user.id }>
                 { user.name }
+                <DeleteUserBtn user={ user } />
               </li>
             );
           })
         }
       </ul>
+      <UserForm />
     </div>
   );
 }
