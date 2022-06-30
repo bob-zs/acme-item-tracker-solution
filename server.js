@@ -35,6 +35,16 @@ app.get('/api/users', async(req, res, next)=> {
   }
 });
 
+app.delete('/api/things/:id', async(req, res, next)=> {
+  try {
+    await Thing.destroy({ where: { id: req.params.id } });
+    res.sendStatus(204);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
 
 const port = process.env.PORT || 3000;
 
