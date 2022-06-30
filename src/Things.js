@@ -10,7 +10,9 @@ const Things = ({ things })=> {
       <h1>Things</h1>
       <ul>
         {
-          things.map( thing => {
+          things
+            .sort((thingA, thingB)=> thingA.rank - thingB.rank)
+            .map( thing => {
             return (
               <li key={ thing.id }>
                 Rank #{ thing.rank }: { thing.name }

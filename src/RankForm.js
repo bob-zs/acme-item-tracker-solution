@@ -22,8 +22,8 @@ const RankForm = ({ rankUp, rankDown, thing })=> {
   const isNotRank1 = thing.rank !== 1;
   return (
     <div>
-      { isNotRank1 && <RankUpBtn rankUp={ rankUp } thing={ thing } /> }
       <RankDownBtn rankDown={ rankDown } thing={ thing } />
+      { isNotRank1 && <RankUpBtn rankUp={ rankUp } thing={ thing } /> }
     </div>
   );
 }
