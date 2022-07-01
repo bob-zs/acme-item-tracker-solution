@@ -50,6 +50,35 @@ app.put('/api/things/rankUp', async(req, res, next)=> {
   }
 });
 
+app.put('/api/things/user', async(req, res, next) => {
+  try {
+    console.log('body', req.body);
+    // console.log('params', req.params); // not in
+    const thing = await Thing.findByPk(req.body.thingId);
+    const oldOwner = await User.findByPk(thing.userId);
+    const newOwner = await User.findByPk(req.body.newOwnerId);
+    
+    console.log('thing', thing.name, 'ownerId', thing.userId)
+
+    console.log('thing', thing.name)
+    console.log('oldOwner', oldOwner.name)
+    console.log('newOwner', newOwner.name)
+    await thing.setUser(newOwner);
+
+    console.log('thing', thing.name, 'ownerId', thing.userId)
+    // console.log(thing);
+    // thing.
+
+    // it's either .removeThing/.addThing
+    // res.send(thing);
+    // newOwner.addThing(thing);
+    res.sendStatus(200);
+  }
+  catch(ex) {
+    next(ex)
+  }
+})
+
 app.delete('/api/things/:id', async(req, res, next)=> {
   try {
     await Thing.destroy({ where: { id: req.params.id } });
