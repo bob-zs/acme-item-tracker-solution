@@ -7,24 +7,6 @@ import axios from 'axios';
 
 const findOwner = (userId, users)=> users.find(u=> u.id === userId);
 
-const onSelectedNewOwner = async function(e, thing) {
-  const newOwnerId = parseInt(e.target.value);
-
-  console.log('new owner id', newOwnerId);
-  console.log('thing owner id', thing.userId);
-
-  if (thing.userId === newOwnerId) {
-    console.log('Same owner, no need to continue');
-    return;
-  }
-  const response = await axios.put('/api/things/user', 
-  { thingId: thing.id, newOwnerId })
-  console.log(response);
-  // const thingWithNewOwner = response.data;
-  // dispatch({ type: 'CHANGE_OWNER', thingWithNewOwner });
-  
-}
-
 const ChooseOwnerSelector = ({ thing, users, currentOwner = null }) => {
 
   return (
@@ -79,11 +61,33 @@ const Things = ({ things, users })=> {
   );
 };
 
-export default connect(
-  (state)=> {
-    return {
-      users: state.users,
-      things: state.things
+
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSelectedNewOwner:  async function(e, thing) {
+      const newOwnerId = parseInt(e.target.value);
+      if (thing.userId === newOwnerId) {
+        console.warn('Same owner, no need to make a request nor change state');
+        return;
+      }
+      const response = await axios.put('/api/things/user', 
+      { thingId: thing.id, newOwnerId })
+    
+      const ownerChanges = response.data;
+      dispatch({ type: 'SET_USER_FOR_THING', ownerChanges }); 
     }
   }
-)(Things);
+
+};
+
+const mapStateToProps = state => {
+  return {
+    users: state.users,
+    things: state.things,
+  }
+}
+    
+
+export default connect(mapStateToProps, mapDispatchToProps)(Things);
