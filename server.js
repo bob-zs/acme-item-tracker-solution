@@ -129,16 +129,13 @@ const init = async()=> {
       ['moe', 'larry', 'lucy', 'ethyl'].map( name => User.create({ name }))
     );
     const [foo, bar, bazz, quq, fizz] = await Promise.all(
-      ['foo', 'bar', 'bazz', 'quq', 'fizz'].map( (name, index) => {
-        const rank = ++index;
-        Thing.create({ name, rank })
-      }
-    ))
+      ['foo', 'bar', 'bazz', 'quq', 'fizz'].map((name, index) => Thing.create({ name, rank: ++index }))
+    );
 
-    moe.addThings([foo, bar]);
-    larry.addThing(bazz);
-    lucy.addThing(quq);
-    ethyl.addThing(fizz);
+    await moe.addThings([foo, bar]);
+    await larry.addThing(bazz);
+    await lucy.addThing(quq);
+    await ethyl.addThing(fizz);
   }
   catch(ex){
     console.log(ex);
