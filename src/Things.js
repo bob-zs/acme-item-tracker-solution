@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import DeleteThingBtn from './DeleteThingBtn';
 import RankForm from './RankForm';
 
-const Things = ({ things })=> {
+const getUserName = (userId, users)=> {
+  const user = users.find(u=> u.id === userId);
+  return user ? user.name : 'Unknown';
+}
+
+const Things = ({ things, users })=> {
   return (
     <div>
       <h1>Things</h1>
@@ -13,13 +18,19 @@ const Things = ({ things })=> {
           things
             .sort((thingA, thingB)=> thingA.rank - thingB.rank)
             .map( thing => {
-            return (
-              <li key={ thing.id }>
-                Rank #{ thing.rank }: { thing.name }
-                <DeleteThingBtn thing={ thing } />
-                <RankForm thing={ thing } />
-              </li>
-            );
+
+              const hasOwner = thing.userId !== null;
+              const userName = hasOwner ? getUserName(thing.userId, users) : null;
+
+              return (
+                <li key={ thing.id }>
+                  Rank #{ thing.rank }: { thing.name }
+                  <br />
+                  { hasOwner && <span>Owner: {userName}<br /></span> }
+                  <DeleteThingBtn thing={ thing } />
+                  <RankForm thing={ thing } />
+                </li>
+              );s
           })
         }
       </ul>
@@ -31,6 +42,7 @@ const Things = ({ things })=> {
 export default connect(
   (state)=> {
     return {
+      users: state.users,
       things: state.things
     }
   }
