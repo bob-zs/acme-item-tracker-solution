@@ -100,8 +100,11 @@ const init = async()=> {
       ['moe', 'larry', 'lucy', 'ethyl'].map( name => User.create({ name }))
     );
     const [foo, bar, bazz, quq, fizz] = await Promise.all(
-      ['foo', 'bar', 'bazz', 'quq', 'fizz'].map( name => Thing.create({ name }))
-    );
+      ['foo', 'bar', 'bazz', 'quq', 'fizz'].map( (name, index) => {
+        const rank = ++index;
+        Thing.create({ name, rank })
+      }
+    ))
 
     moe.addThings([foo, bar]);
     larry.addThing(bazz);
