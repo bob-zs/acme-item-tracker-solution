@@ -5,20 +5,22 @@ import UserForm from './UserForm';
 
 
 const Users = ({ users, things })=> {
+
+  const getThingsOwned = user => things.filter((thing) => thing.userId === user.id);
+
   return (
     <div>
       <h1>Users</h1>
       <ul>
         {
           users.map( (user) => {
-            
-            const thingsOwned = things.filter((thing) => thing.userId === user.id);
+
+            const thingsOwned = getThingsOwned(user);
 
             return (
               <li key={ user.id }>
                 { user.name }
-
-                  { thingsOwned && // Maybe this should be it's own component
+                  { thingsOwned.length !== 0 ? // Maybe this should be it's own component
                     <span>
                       {' '}owns
                       <ul>
@@ -26,7 +28,9 @@ const Users = ({ users, things })=> {
                           <li key={ thing.id }>{ thing.name }</li>
                       ) }
                       </ul>
-                    </span>
+                    </span> 
+                    : // if nothings owned, then line break
+                    <br />
                   }
 
                 <DeleteUserBtn user={ user } />
