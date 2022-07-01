@@ -2,6 +2,7 @@ const { conn, User, Thing } = require('./db');
 const express = require('express');
 const app = express();
 const path = require('path');
+const e = require('express');
 
 app.use(express.json());
 app.use('/dist', express.static('dist'));
@@ -101,6 +102,11 @@ const init = async()=> {
     const [foo, bar, bazz, quq, fizz] = await Promise.all(
       ['foo', 'bar', 'bazz', 'quq', 'fizz'].map( name => Thing.create({ name }))
     );
+
+    moe.addThings([foo, bar]);
+    larry.addThing(bazz);
+    lucy.addThing(quq);
+    ethyl.addThing(fizz);
   }
   catch(ex){
     console.log(ex);

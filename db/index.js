@@ -19,6 +19,8 @@ const Thing = conn.define('thing', {
   }
 });
 
+User.hasMany(Thing);
+Thing.belongsTo(User);
 
 module.exports = {
   conn,
