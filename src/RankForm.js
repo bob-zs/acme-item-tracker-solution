@@ -33,7 +33,7 @@ const RankForm = ({ rankUp, rankDown, thing })=> {
 const mapDispatchToProps = (dispatch)=> {
   return {
     rankDown: async(higherRankThing)=> {
-      const response = await axios.post('/api/things/rankDown', { thingId: higherRankThing.id });
+      const response = await axios.put('/api/things/rankDown', { thingId: higherRankThing.id });
       const lowerRankThing = response.data;
       dispatch({ type: 'RANK_DOWN', lowerRankThing });
     },
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch)=> {
       if (lowerRankThing.rank === 1) {
         return;
       }
-      const response = await axios.post('/api/things/rankUp', { thingId: lowerRankThing.id });
+      const response = await axios.put('/api/things/rankUp', { thingId: lowerRankThing.id });
       const higherRankThing = response.data;
       dispatch({ type: 'RANK_UP', higherRankThing });
     },

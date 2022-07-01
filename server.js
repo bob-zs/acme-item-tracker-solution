@@ -27,7 +27,7 @@ app.post('/api/things', async(req, res, next)=> {
   }
 });
 
-app.post('/api/things/rankDown', async(req, res, next)=> {
+app.put('/api/things/rankDown', async(req, res, next)=> {
   try {
     const thing = await Thing.findByPk(req.body.thingId);
     await thing.increment({ rank: 1 }); // higher rank number is a lower rank
@@ -39,7 +39,7 @@ app.post('/api/things/rankDown', async(req, res, next)=> {
   }
 });
 
-app.post('/api/things/rankUp', async(req, res, next)=> {
+app.put('/api/things/rankUp', async(req, res, next)=> {
   try {
     const thing = await Thing.findByPk(req.body.thingId);
     await thing.decrement({ rank: 1 }); // lower rank number is a higher rank
