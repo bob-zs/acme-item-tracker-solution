@@ -28,8 +28,6 @@ const RankForm = ({ rankUp, rankDown, thing })=> {
   );
 }
 
-
-
 const mapDispatchToProps = (dispatch)=> {
   return {
     rankDown: async(higherRankThing)=> {

@@ -2,7 +2,6 @@ const { conn, User, Thing } = require('./db');
 const express = require('express');
 const app = express();
 const path = require('path');
-const e = require('express');
 
 app.use(express.json());
 app.use('/dist', express.static('dist'));
@@ -116,6 +115,7 @@ const init = async()=> {
     const [moe, larry, lucy, ethyl] = await Promise.all(
       ['moe', 'larry', 'lucy', 'ethyl'].map( name => User.create({ name }))
     );
+    // initially, rank is arbitrarily based on order created
     const [foo, bar, bazz, quq, fizz] = await Promise.all(
       ['foo', 'bar', 'bazz', 'quq', 'fizz'].map((name, index) => Thing.create({ name, rank: ++index }))
     );
