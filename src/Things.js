@@ -19,12 +19,9 @@ const Things = ({ things, users })=> {
                   Rank #{ thing.rank }: { thing.name }
                   <br />
                   { thing.owner && <span>Owner: {thing.owner.name}<br /></span> }
-                  <ChooseOwnerSelector thing={ thing } users={ users } />
-                  <br />
-                  <DeleteThingBtn thing={ thing } />
-                  <br />
-                  <RankForm thing={ thing } />
-                  <br />
+                  <ChooseOwnerSelector thing={ thing } users={ users } /><br />
+                  <DeleteThingBtn thing={ thing } /><br />
+                  <RankForm thing={ thing } /><br />
                 </li>            
               );
           })
