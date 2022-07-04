@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
-const ChooseOwnerSelector = function({ thing, users, currentOwner = null }) {
-
-  const onSelectedNewOwner = this.props.onSelectedNewOwner;
-
+const ChooseOwnerSelector = function({ thing, users, onSelectedNewOwner }) {
   return (
     <span>
-      <select defaultValue={ currentOwner ? currentOwner.id : false } onChange={event => onSelectedNewOwner(event, thing) } >
+      <select defaultValue={ thing.userId ? thing.userId : false } onChange={event => onSelectedNewOwner(event, thing) } >
         <option>Choose an Owner</option>
         {
           users.map((user) => {
@@ -26,6 +24,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onSelectedNewOwner:  async function(e, thing) {
       const newOwnerId = parseInt(e.target.value);
+      if(!newOwnerId) {
+        return;
+      }
       if (thing.userId === newOwnerId) {
         console.warn('Same owner, no need to make a request nor change state');
         return;
@@ -39,6 +40,10 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default ChooseOwnerSelector;
+const mapStateToProps = state => {
+  return {
+    users: state.users,
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Things);
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseOwnerSelector);
