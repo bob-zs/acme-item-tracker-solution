@@ -15,7 +15,7 @@ const Users = ({ users, things })=> {
         {
           users.map( (user) => {
 
-            const thingsOwned = getThingsOwned(user);
+            const thingsOwned = getThingsOwned(user); // maybe deal with it above like in things
 
             return (
               <li key={ user.id }>

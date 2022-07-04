@@ -24,9 +24,6 @@ const mapDispatchToProps = dispatch => {
   return {
     onSelectedNewOwner:  async function(e, thing) {
       const newOwnerId = parseInt(e.target.value);
-      if(!newOwnerId) {
-        return;
-      }
       if (thing.userId === newOwnerId) {
         console.warn('Same owner, no need to make a request nor change state');
         return;
